@@ -1,0 +1,37 @@
+def check(ca,cb):
+    for i in range(ord('a'),ord('z')+1):
+        if ca[chr(i)]>=cb[chr(i)]:
+            x=1
+        else:
+            return False
+    return True
+
+
+def findMinLen(b,a):
+    if a==b:
+        return len(a)
+    ca={}
+    cb={}
+    for i in range(ord('a'),ord('z')+1):
+        ca[chr(i)]=0
+        cb[chr(i)]=0
+    p1=0
+    p2=0
+
+    ans=99999999999
+    for i in b:
+        cb[i]+=1
+    while(p1<len(a) and p2<len(a)):
+        if(check(ca,cb)==True):
+            ans=min(ans,p2-p1)
+            ca[a[p1]]+=-1
+            p1+=1
+        else:
+            ca[a[p2]]+=1
+            p2+=1
+            
+                
+    return ans if ans!=99999999999 else -1
+for _ in range(int(input())):
+    val,txt=map(str,input().split())
+    print(findMinLen(val,txt))
